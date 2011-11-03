@@ -16,17 +16,17 @@ window.parseCSV = function(data, delimiter) {
     ),
     "gi"
   );
-  // Create an array with an empty row to hold the data
-  var arr = [[]];
-  // Create an array matcher
+  // Create an resultay with an empty row to hold the data
+  var result = [[]];
+  // Create an resultay matcher
   var matcher = null;
   // Loop through the matches
   while (matcher = pattern.exec(data)) {
-    var result = matcher[1];
+    var matched = matcher[1];
     // Check for row delimiter
-    if (result.length && result != delimiter) {
+    if (matched.length && matched != delimiter) {
       // Add new row
-      data.push([]);
+      result.push([]);
     }
     var value;
     if (matcher[2]) {
@@ -35,8 +35,8 @@ window.parseCSV = function(data, delimiter) {
       value = matcher[3];
     }
     // Push the value
-    arr[arr.length - 1].push(value);
+    result[result.length - 1].push(value);
   }
   
-  return arr;
+  return result;
 }

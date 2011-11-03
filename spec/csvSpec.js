@@ -12,4 +12,9 @@ describe("CSV Parser", function() {
     var data = window.parseCSV('a,"this is a, test",c');
     expect(data[0]).toEqual(['a','this is a, test', 'c']);
   });
+  
+  it("should be able to handle multiple lines", function() {
+    var data = window.parseCSV("a,b,c\nd,e,f");
+    expect(data).toEqual([['a', 'b', 'c'], ['d', 'e', 'f']]);
+  });
 });
