@@ -4,12 +4,12 @@ describe('Interviewer', function() {
   });
   
   it('should have a name', function() {
-    var interviewer = new window.Intervier({name: 'A+B'});
+    var interviewer = new window.Interviewer({name: 'A+B'});
     expect(interviewer.get('name')).toEqual('A+B');
   });
   
   it('should have a cid', function() {
-    var interviewer = new window.Intervier({name: 'A+B'});
+    var interviewer = new window.Interviewer({name: 'A+B'});
     expect(interviewer.cid).toBeDefined();
   })
 }); 
