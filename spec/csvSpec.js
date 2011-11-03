@@ -7,4 +7,9 @@ describe("CSV Parser", function() {
     var data = window.parseCSV("a,b,c");
     expect(data[0]).toEqual(['a', 'b', 'c']);
   });
+  
+  it("should be able to handle quotes", function() {
+    var data = window.parseCSV('a,"this is a, test",c');
+    expect(data[0]).toEqual(['a','this is a, test', 'c']);
+  });
 });
