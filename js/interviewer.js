@@ -1,1 +1,1 @@
-var Interviewer = Backbone.Model.extend({});
+window.Interviewer = Backbone.Model.extend({});

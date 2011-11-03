@@ -1,7 +1,7 @@
 // This code is based off the blog post at 
 // http://www.bennadel.com/blog/1504-Ask-Ben-Parsing-CSV-Strings-With-Javascript-Exec-Regular-Expression-Command.htm
 
-function parseCSV(data, delimiter) {
+window.parseCSV = function(data, delimiter) {
   // Set default value for delimiter
   delimiter = (delimiter || ",");
   // Create a regex pattern
