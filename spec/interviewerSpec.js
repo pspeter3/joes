@@ -1,6 +1,6 @@
 describe('Interviewer', function() {
   it('should be defined', function() {
-    expect(window.Interviewer).toBeDefined();
+    expect(Interviewer).toBeDefined();
   });
   
   it('should have a name', function() {
