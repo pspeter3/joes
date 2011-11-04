@@ -1,22 +1,23 @@
-// Create the constructor
-window.Interviewer = function(name) {
-  this.id = window.Interviewer.idCount++;
+function Interviewer(id, name, numEvents) {
+  // Instance variables
+  this.id = id;
   this.name = name;
+  this.sat = [];
+  this.sun = [];
+  for (var i = 0; i < numEvents; i++) {
+    this.sat.push([]);
+    this.sun.push([]);
+  }
 }
 
-// Create a static hashmap to hold id values based on name
-window.Interviewer.hash = {};
-window.Interviewer.cache = {}
+Interviewer.prototype.isFull = function(day, event, maxRecruits) {
+  return this.size(day, event) === maxRecruits;
+}
 
-// Create a static id count
-window.Interviewer.idCount = 0;
+Interviewer.prototype.add = function(day, event, recruit) {
+  this[day][event].push(recruit);
+}
 
-// Create a static creation function that prevents multiple entries
-window.Interviewer.create = function(name) {
-  if (_(window.Interviewer.hash[name]).isUndefined()) {
-    var interviewer = new window.Interviewer(name);
-    window.Interviewer.hash[name] = interviewer;
-    window.Interviewer.cache[interviewer.id] = interviewer;
-  }
-  return window.Interviewer.hash[name];
+Interviewer.prototype.size = function(day, event) {
+  return this[day][event].length;
 }

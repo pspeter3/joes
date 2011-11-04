@@ -1,41 +1,33 @@
 describe('Recruit', function() {
   it('should be defined', function() {
-    expect(window.Recruit).toBeDefined();
+    expect(Recruit).toBeDefined();
   });
   
-  it('should construct a simple object', function() {
-    var r = new window.Recruit('A', 'Saturday', 0);
-    expect(r.id).toEqual(0);
-    expect(r.name).toEqual('A');
-    expect(r.date).toEqual(0);
-  });
-  
-  it('should handle various date inputs', function() {
-    var saturday = new window.Recruit('A', 'Saturday, Nov 18', 0);
-    expect(saturday.date).toEqual(0);
-    var sunday = new window.Recruit('A', 'Nov 19, Sunday', 0);
-    expect(sunday.date).toEqual(1);
-  });
-  
-  it('should have a reset method', function() {
-    var r = new Recruit('A', '', 0);
-    expect(r.reset).toBeDefined();
-  });
-  
-  it('should have an addConflict method', function() {
-    var r = new Recruit('A', '', 0);
+  it('should be able to add a conflict', function() {
+    var r = new Recruit(0, 'a', 0, 8);
+    r.reset();
     r.addConflict(1);
+    expect(r.temp[0]).toBeTruthy();
     expect(r.temp[1]).toBeTruthy();
   });
   
-  it('should have an addFellows method', function() {
-    var r = new Recruit('A', '', 0);
-    r.addFellows([0, 1, 2]);
-    expect(r.fellows[1]).toBeTruthy();
+  it('should be able to return the size', function() {
+    var r = new Recruit(0, 'a', 0, 8);
+    r.reset();
+    expect(r.numConflicts()).toEqual(1);
   });
   
-  it('should have an assign method', function() {
-    var r = new Recruit('A', '', 0);
-    expect(r.assign).toBeDefined();
+  it('should add fellows', function() {
+    var r = new Recruit(0, 'a', 0, 8);
+    r.addFellows([0, 1]);
+    expect(r.fellows).toEqual([0, 1]);
+  });
+  
+  it('should be able to assign', function() {
+    var r = new Recruit(0, 'a', 0, 4);
+    r.reset();
+    expect(r.assign([0,1,2,3])).toEqual(1);
+    r.addConflict(1);
+    expect(r.assign([0,1,2,3])).toEqual(2);
   });
 });

@@ -1,72 +1,49 @@
-// Constructor
-window.Recruit = function(name, date, interviewerId) {
-  this.id = window.Recruit.idCount++;
+function Recruit(id, name, interviewerId, numInterviewers) {
+  // Create instance variables
+  this.id = id;
   this.name = name;
-  if (date.match(/saturday/i)) {
-    this._saturday();
-  } else if (date.match(/sunday/i)) {
-    this._sunday();
-  } else {
-    if (window.Recruit.saturdayCount < window.Recruit.sundayCount) {
-      this._saturday();
+  this.conflicts = [];
+  this.fellows = [id];
+  // Instantiate conflicts
+  for(var i = 0; i < numInterviewers; i++) {
+    if (i === interviewerId) {
+      this.conflicts.push(true);
     } else {
-      this._sunday();
+      this.conflicts.push(false);
     }
   }
-  this.conflicts = {};
-  this.conflicts[interviewerId] = true;
-  this.temp = {};
-  this.fellows = {};
-}
-
-// Create an id count
-window.Recruit.idCount = 0;
-
-// Create day Counts
-window.Recruit.saturdayCount = 0;
-window.Recruit.sundayCount = 0;
-
-// Set the date to saturday
-window.Recruit.prototype._saturday = function() {
-  this.date = 0;
-  window.Recruit.saturdayCount++;
-}
-
-// Set the date to sunday
-window.Recruit.prototype._sunday = function() {
-  this.date = 1;
-  window.Recruit.sundayCount++;
-}
-
-window.Recruit.prototype.reset = function() {
-  console.log(_(this.conflicts).size());
   this.temp = _(this.conflicts).clone();
 }
 
-window.Recruit.prototype.addConflict = function(interviewerId) {
-  this.temp[interviewerId] = true;
+Recruit.prototype.reset = function() {
+  this.temp = _(this.conflicts).clone();
 }
 
-window.Recruit.prototype.addFellows = function(fellows) {
-  var fellowMap = this.fellows;
-  _(fellows).each(function(fellow) {
-    if (_(fellowMap[fellow.id]).isUndefined()) {
-      fellowMap[fellow.id] = fellow;
-    }
-  });
+Recruit.prototype.numConflicts = function() {
+  return _(this.temp).reduce(
+    function(memo, conflict) {
+      if (conflict) {
+        memo++;
+      }
+      return memo;
+    }, 0
+  );
 }
 
-window.Recruit.prototype.assign = function(interviewers) {
-  console.log("assign");
-  var temp = this.temp;
-  var conflicts = this.conflicts;
-  console.log(this);
-  _(interviewers).each(function(id) {
-    console.log(id);
-    if (_(temp[id]).isUndefined()) {
-      temp[id] = true;
-      conflicts[id] = true;
-      return id;
+Recruit.prototype.addConflict = function(id) {
+  this.temp[id] = true;
+}
+
+Recruit.prototype.assign = function(ids) {
+  for (var i = 0; i < ids.length; i++) {
+    var iid = ids[i];
+    if (this.temp[iid] === false) {
+      this.conflicts[iid] = true;
+      return iid;
     }
-  });
+  }
+}
+
+Recruit.prototype.addFellows = function(fellows) {
+  this.fellows = _(this.fellows.concat(fellows)).uniq();
 }
