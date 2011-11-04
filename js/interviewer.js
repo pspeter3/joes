@@ -2,7 +2,18 @@
 window.Interviewer = Backbone.Model.extend({});
 
 // Create the Interviewer Collection
-window.InterviewCollection = Backbone.Collection.extend({
+window.InterviewerCollection = Backbone.Collection.extend({
   model: window.Interviewer,
-  cache: {}
+  cache: {},
+  insert: function(name) {
+    if (_(this.cache[name]).isUndefined()) {
+      var cid = this.add({name: name});
+      this.cache[name] = cid;
+    }
+    return this.cache[name];
+  }
+});
+
+window.InterviewerCollection.bind("add", function(interviewer) {
+  return interviewer.cid;
 });
