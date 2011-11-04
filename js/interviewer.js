@@ -1,19 +1,23 @@
-// Create a default backbone model
-window.Interviewer = Backbone.Model.extend({});
+// Create the constructor
+window.Interviewer = function(id, name) {
+  this.id = id;
+  this.name = name;
+}
 
-// Create the Interviewer Collection
-window.InterviewerCollection = Backbone.Collection.extend({
-  model: window.Interviewer,
-  cache: {},
-  insert: function(name) {
-    if (_(this.cache[name]).isUndefined()) {
-      var cid = this.add({name: name});
-      this.cache[name] = cid;
-    }
-    return this.cache[name];
+// Create a static hashmap to hold id values based on name
+window.Interviewer.hash = {};
+
+// Create a static id count
+window.Interviewer.idCount = 0;
+
+// Create a static creation function that prevents multiple entries
+window.Interviewer.create = function(name) {
+  if (_(window.Interviewer.hash[name]).isUndefined()) {
+    var interviewer = new window.Interviewer(
+      window.Interviewer.idCount++,
+      name
+    );
+    window.Interviewer.hash[name] = interviewer;
   }
-});
-
-window.InterviewerCollection.bind("add", function(interviewer) {
-  return interviewer.cid;
-});
+  return window.Interviewer.hash[name];
+}
