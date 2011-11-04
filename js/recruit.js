@@ -13,11 +13,9 @@ window.Recruit = function(name, date, interviewerId) {
       this._sunday();
     }
   }
-  this.interviewerId = interviewerId;
   this.conflicts = {interviewerId: true};
   this.temp = {};
   this.fellows = [];
-  this.render();
 }
 
 // Create an id count
@@ -29,24 +27,12 @@ window.Recruit.sundayCount = 0;
 
 // Set the date to saturday
 window.Recruit.prototype._saturday = function() {
-  this.date = "Saturday";
+  this.date = 0;
   window.Recruit.saturdayCount++;
 }
 
 // Set the date to sunday
 window.Recruit.prototype._sunday = function() {
-  this.date = "Sunday";
+  this.date = 1;
   window.Recruit.sundayCount++;
-}
-
-// Render the object
-window.Recruit.prototype.render = function() {
-  try {
-    $('.recruits-table').append(_.template(
-      "<tr><td><%= id %></td><td><%= name %></td><td><%= date %></td><td><%= interviewerId %></td></tr>",
-      {id: this.id, name: this.name, date: this.date, interviewerId: this.interviewerId}
-    ));
-  } catch(err) {
-    console.error(err);
-  }
 }

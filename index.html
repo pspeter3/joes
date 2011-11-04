@@ -47,7 +47,7 @@
 	      <div class="page-header">
 	        <h1>Form</h1>
 	      </div>
-	      <form action="">
+	      <form class="parse" action="">
 	        <fieldset>
 	          <div class="clearfix">
 	            <label for="events">Number of Events</label>
@@ -64,48 +64,9 @@
 	          </div>
 	          <div class="actions">
 	            <input type="submit" class="btn primary" value="Submit"/>
-	            <button type="reset" class="btn">Reset</button>
 	          </div>
 	        </fieldset>
 	      </form>
-	    </div>
-	  </div>
-	  <div class="row">
-	    <div class="span16">
-	      <div class="page-header">
-	        <h1>Review</h1>
-	      </div>
-	      <h2>Number of Events <small class="num-events">0</small></h2>
-	    </div>
-	  </div>
-	  <div class="row">
-	    <div class="span8">
-	      <h2>Interviewers</h2>
-	      <table class="zebra-striped">
-	        <thead>
-	          <tr>
-	            <th>id</th>
-	            <th>Name</th>
-	          </tr>
-	        </thead>
-	        <tbody class="interviewers-table">
-	        </tbody>
-	      </table>
-	    </div>
-	    <div class="span8">
-	      <h2>Recruits</h2>
-	      <table class="zebra-striped">
-	        <thead>
-	          <tr>
-	            <th>id</th>
-	            <th>Name</th>
-	            <th>Date</th>
-	            <th>InterviewerId</th>
-	          </tr>
-	        </thead>
-	        <tbody class="recruits-table">
-	        </tbody>
-	      </table>
 	    </div>
 	  </div>
 	  <div class="row">
@@ -134,5 +95,11 @@
 	    </div>
 	  </div>
 	</div>
+	<script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
+	<script type="text/javascript" src="js/csv.js"></script>
+	<script type="text/javascript" src="js/interviewer.js"></script>
+	<script type="text/javascript" src="js/recruit.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
 </body>
 </html>
