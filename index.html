@@ -11,14 +11,13 @@
   </style>
 </head>
 <body>
-	<div class="topbar">
+	<div class="topbar" data-scrollspy="scrollspy">
 	  <div class="topbar-inner">
 	    <div class="container">
 	      <a href="#" class="brand">Uncle Joe's Recruitment</a>
 	      <ul class="nav">
 	        <li><a href="#instructions">Instructions</a></li>
 	        <li><a href="#form">Form</a></li>
-	        <li><a href="#review">Review</a></li>
 	        <li><a href="#results">Results</a></li>
 	        <li><a href="#about">About</a></li>
 	      </ul>
@@ -70,7 +69,7 @@
 	    </div>
 	  </div>
 	  <div class="row">
-	    <div class="span16">
+	    <div class="span16" id="results">
 	      <div class="page-header">
 	        <h1>Results</h1>
 	      </div>
@@ -94,8 +93,21 @@
 	      </table>
 	    </div>
 	  </div>
+	  <div class="row">
+	    <div class="span-16" id="about">
+	      <div class="page-header">
+	        <h1>About</h1>
+	      </div>
+	      <p>
+	        This application was written by Phips Peter, @pspeter3, for the use of
+	        Washington Univeristy Uncle Joe's program. Please view the github page
+	        to clone or fork the source code
+	      </p>
+	    </div>
+	  </div>
 	</div>
 	<script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-scrollspy.js"></script>
 	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/csv.js"></script>
 	<script type="text/javascript" src="js/interviewer.js"></script>

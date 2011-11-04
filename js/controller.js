@@ -129,4 +129,5 @@ $(function() {
     exec();
     return false;
   });
+  $('.topbar').scrollSpy();
 });
