@@ -13,9 +13,10 @@ window.Recruit = function(name, date, interviewerId) {
       this._sunday();
     }
   }
-  this.conflicts = {interviewerId: true};
+  this.conflicts = {};
+  this.conflicts[interviewerId] = true;
   this.temp = {};
-  this.fellows = [];
+  this.fellows = {};
 }
 
 // Create an id count
@@ -38,9 +39,34 @@ window.Recruit.prototype._sunday = function() {
 }
 
 window.Recruit.prototype.reset = function() {
+  console.log(_(this.conflicts).size());
   this.temp = _(this.conflicts).clone();
 }
 
 window.Recruit.prototype.addConflict = function(interviewerId) {
   this.temp[interviewerId] = true;
+}
+
+window.Recruit.prototype.addFellows = function(fellows) {
+  var fellowMap = this.fellows;
+  _(fellows).each(function(fellow) {
+    if (_(fellowMap[fellow.id]).isUndefined()) {
+      fellowMap[fellow.id] = fellow;
+    }
+  });
+}
+
+window.Recruit.prototype.assign = function(interviewers) {
+  console.log("assign");
+  var temp = this.temp;
+  var conflicts = this.conflicts;
+  console.log(this);
+  _(interviewers).each(function(id) {
+    console.log(id);
+    if (_(temp[id]).isUndefined()) {
+      temp[id] = true;
+      conflicts[id] = true;
+      return id;
+    }
+  });
 }

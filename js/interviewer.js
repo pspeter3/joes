@@ -6,6 +6,7 @@ window.Interviewer = function(name) {
 
 // Create a static hashmap to hold id values based on name
 window.Interviewer.hash = {};
+window.Interviewer.cache = {}
 
 // Create a static id count
 window.Interviewer.idCount = 0;
@@ -14,8 +15,8 @@ window.Interviewer.idCount = 0;
 window.Interviewer.create = function(name) {
   if (_(window.Interviewer.hash[name]).isUndefined()) {
     var interviewer = new window.Interviewer(name);
-    console.log(interviewer.id);
     window.Interviewer.hash[name] = interviewer;
+    window.Interviewer.cache[interviewer.id] = interviewer;
   }
   return window.Interviewer.hash[name];
 }
