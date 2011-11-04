@@ -14,4 +14,9 @@ describe('Interviewer', function() {
     var b = window.Interviewer.create('A');
     expect(a.id).toEqual(b.id);
   });
+  
+  it('should have a render method', function() {
+    var i = window.Interviewer.create('A');
+    expect(i.render).toBeDefined();
+  });
 });

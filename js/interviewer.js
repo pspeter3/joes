@@ -18,6 +18,19 @@ window.Interviewer.create = function(name) {
       name
     );
     window.Interviewer.hash[name] = interviewer;
+    interviewer.render();
   }
   return window.Interviewer.hash[name];
+}
+
+// Create a render method
+window.Interviewer.prototype.render = function() {
+  try {
+    $('.interviewers-table').append(_.template(
+      "<tr><td><%= id %></td><td><%= name %></td></tr>",
+      {id: this.id, name: this.name}
+    ));
+  } catch(err) {
+    console.error(err);
+  }
 }
