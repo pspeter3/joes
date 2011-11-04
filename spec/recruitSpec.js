@@ -15,8 +15,6 @@ describe('Recruit', function() {
     expect(saturday.date).toEqual('Saturday');
     var sunday = new window.Recruit('A', 'Nov 19, Sunday', 0);
     expect(sunday.date).toEqual('Sunday');
-    var either = new window.Recruit('A', 'Gargbage', 0);
-    expect(either.date).toEqual('Either');
   });
   
   it('should have a render method', function() {
