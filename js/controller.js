@@ -3,7 +3,7 @@ function assign(interviewers, recruits, day, events) {
   // Create an array of ids for the interviewers
   var ids = _(interviewers).map(function(i) { return i.id});
   // Create a variable for the max group size
-  var maxSize = Math.ceil(recruits.length / interviewers.length);
+  var maxRecruits = Math.ceil(recruits.length / interviewers.length);
   // Loop through the events
   for (var event = 0; event < events; event++) {
     console.log(event);
@@ -24,17 +24,18 @@ function assign(interviewers, recruits, day, events) {
         recruits[fellow].addConflict(iid);
       });
       // Add the recruit to the Interviewer
-      console.log(interviewers);
       interviewers[iid].add(day, event, recruit);
       // Check if the interviewer is full
-      if (interviewers[iid].isFull()) {
+      if (interviewers[iid].isFull(day, event, maxRecruits)) {
+        console.log('' + iid + ' is full');
         _(stack).each(function(r) {
           r.addConflict(iid);
         });
       }
+      console.log('sorting');
       // Sort the interviewers
       ids = ids.sort(function(a, b) {
-        return a.size(day, event) - b.size(day, event);
+        return interviewers[a].size(day, event) - interviewers[b].size(day, event);
       });
       // Sort the recruits
       stack = stack.sort(function(a, b) {
