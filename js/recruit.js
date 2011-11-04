@@ -42,6 +42,7 @@ Recruit.prototype.assign = function(ids) {
       return iid;
     }
   }
+  return ids[0];
 }
 
 Recruit.prototype.addFellows = function(fellows) {

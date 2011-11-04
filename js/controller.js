@@ -19,6 +19,9 @@ function assign(interviewers, recruits, day, events) {
       var recruit = stack.pop();
       // Assign the recruit
       var iid = recruit.assign(ids);
+      if (_(iid).isUndefined()) {
+        console.log(recruit);
+      }
       // Assign temp conflict to all fellows
       _(recruit.fellows).each(function(fellow) {
         recruits[fellow].addConflict(iid);
@@ -32,7 +35,6 @@ function assign(interviewers, recruits, day, events) {
           r.addConflict(iid);
         });
       }
-      console.log('sorting');
       // Sort the interviewers
       ids = ids.sort(function(a, b) {
         return interviewers[a].size(day, event) - interviewers[b].size(day, event);
@@ -48,10 +50,25 @@ function assign(interviewers, recruits, day, events) {
         return f.id;
       });
       _(fellows).each(function(fellow) {
-        recruits.addFellows(fellows);
+        recruits[fellow].addFellows(fellows);
       });
     });
   }
+  // Render the information
+  var partial = "<tr><td><%= interviewer.name %></td>" +
+    "<% _(interviewer[day]).each(function(event) { %>" +
+      "<td><ul><% _(event).each(function(recruit) { %>" +
+        "<li><%= recruit.name %></li>" +
+      "<% }); %></ul></td>" +
+    "<% }); %></tr>";
+  _(interviewers).each(function(interviewer) {
+    $('.' + day + ' tbody').append(
+      _.template(
+        partial,
+        {interviewer: interviewer, day: day}
+      )
+    );
+  });
 }
 
 function exec() {
@@ -72,12 +89,14 @@ function exec() {
     if (row.length === 3) {
       if (_(cache[row[2]]).isUndefined()) {
         interviewers.push(new Interviewer(interviewers.length, row[2], numEvents));
+        console.log(row[2]);
         cache[row[2]] = interviewers.length - 1;
       }
     }
   });
   // Iterate to create the recruits
   var size = interviewers.length;
+  console.log(size);
   _(data).each(function(row) {
     if (row.length === 3) {
       if (row[1].match(/saturday/i)) {
@@ -92,12 +111,14 @@ function exec() {
   // Balance out the days
   while (either.length > 0) {
     var r = either.pop();
-    if (sat.length > sun.length) {
-      sat.push(sat.length, r.name, r.interviewerId, size);
+    if (sat.length < sun.length) {
+      sat.push(new Recruit(sat.length, r.name, r.interviewerId, size));
     } else {
-      sun.push(sun.length, r.name, r.interviewerId, size);
+      sun.push(new Recruit(sun.length, r.name, r.interviewerId, size));
     }
   }
+  console.log(sat.length);
+  console.log(sun.length);
   // Assign the data
   assign(interviewers, sat, 'sat', numEvents);
   assign(interviewers, sun, 'sun', numEvents);
