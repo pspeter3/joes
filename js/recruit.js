@@ -36,3 +36,11 @@ window.Recruit.prototype._sunday = function() {
   this.date = 1;
   window.Recruit.sundayCount++;
 }
+
+window.Recruit.prototype.reset = function() {
+  this.temp = _(this.conflicts).clone();
+}
+
+window.Recruit.prototype.addConflict = function(interviewerId) {
+  this.temp[interviewerId] = true;
+}
