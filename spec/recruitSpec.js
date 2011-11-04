@@ -16,4 +16,26 @@ describe('Recruit', function() {
     var sunday = new window.Recruit('A', 'Nov 19, Sunday', 0);
     expect(sunday.date).toEqual(1);
   });
+  
+  it('should have a reset method', function() {
+    var r = new Recruit('A', '', 0);
+    expect(r.reset).toBeDefined();
+  });
+  
+  it('should have an addConflict method', function() {
+    var r = new Recruit('A', '', 0);
+    r.addConflict(1);
+    expect(r.temp[1]).toBeTruthy();
+  });
+  
+  it('should have an addFellows method', function() {
+    var r = new Recruit('A', '', 0);
+    r.addFellows([0, 1, 2]);
+    expect(r.fellows[1]).toBeTruthy();
+  });
+  
+  it('should have an assign method', function() {
+    var r = new Recruit('A', '', 0);
+    expect(r.assign).toBeDefined();
+  });
 });

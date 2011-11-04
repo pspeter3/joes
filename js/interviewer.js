@@ -1,5 +1,5 @@
 // Create the constructor
-window.Interviewer = function(id, name) {
+window.Interviewer = function(name) {
   this.id = window.Interviewer.idCount++;
   this.name = name;
 }
@@ -14,6 +14,7 @@ window.Interviewer.idCount = 0;
 window.Interviewer.create = function(name) {
   if (_(window.Interviewer.hash[name]).isUndefined()) {
     var interviewer = new window.Interviewer(name);
+    console.log(interviewer.id);
     window.Interviewer.hash[name] = interviewer;
   }
   return window.Interviewer.hash[name];
